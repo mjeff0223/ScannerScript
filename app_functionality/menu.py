@@ -1,7 +1,5 @@
 import subprocess
-import ipCheck
-import vulScan
-import ufwSetup
+from app_functionality import vulScan, ipCheck, ufwSetup
 
 def show_homepage():
     print("")

@@ -1,6 +1,6 @@
 import subprocess
-import ipCheck
-import menu
+from app_functionality import ipCheck, menu
+
 
 
 def firewall_setup():

@@ -1,6 +1,6 @@
 import subprocess
-import ipCheck
-import menu
+from app_functionality import ipCheck, menu
+
 
 def v_scans():
     while True:
@@ -26,11 +26,11 @@ def v_scans():
 
         elif uc == 3:
             ip = ipCheck.ip_check()
-            subprocess.run(["nmap" , "-O", ip])
+            subprocess.run(["sudo", "nmap" , "-O", ip])
 
         elif uc == 4:
             ip = ipCheck.ip_check()
-            subprocess.run(["nmap", "-sV", ip])
+            subprocess.run(["sudo", "nmap", "-sV", ip])
 
         elif uc == 5:
             menu.show_homepage()
