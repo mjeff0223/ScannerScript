@@ -19,7 +19,7 @@ def firewall_setup():
 
         if uc == 1:
             ip = ipCheck.ip_check()
-            subprocess.run([f"sudo ufw deny from {ip}"])
+            subprocess.run(["sudo", "ufw", "deny", "from", ip])
         
         
         elif uc == 2:
