@@ -37,15 +37,19 @@ def firewall_setup():
                 protocol = input("What protocol do you want to allow: H for HTTP S for HTTPS: ")
                 if protocol == "H" or protocol == "h":
                     subprocess.run(["sudo", "ufw", "allow", "\"Nginx HTTP\""])
+                    print("Succesful")
                 elif protocol == "S" or protocol == "S":
                     subprocess.run(["sudo", "ufw", "allow", "\"Nginx HTTPS\""])
+                    print("Succesful")
 
             elif web_server == "A" or web_server == "a":
                 protocol = input("What protocol do you want to allow: H for HTTP S for HTTPS: ")
                 if protocol == "H" or protocol == "h":
                     subprocess.run(["sudo", "ufw", "allow", "\"Apache HTTP\""])
+                    print("Succesful")
                 elif protocol == "S" or protocol == "S":
                     subprocess.run(["sudo", "ufw", "allow", "\"Apache HTTPS\""])
+                    print("Succesful")
         elif uc == 5:
             menu.show_homepage()
             menu.menu_options()
