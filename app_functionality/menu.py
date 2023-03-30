@@ -1,5 +1,5 @@
 import subprocess
-from app_functionality import vulScan, ipCheck, ufwSetup
+from app_functionality import vulScan, ipCheck, ufwSetup, snortSetup, networkCapture
 
 def show_homepage():
     print("")
@@ -22,6 +22,9 @@ def menu_options():
         vulScan.v_scans()
     elif uc == 2:
         ufwSetup.firewall_setup()
-
+    elif uc == 3:
+        networkCapture.start_capture()
+    elif uc == 4:
+        snortSetup.configure_snort_rules()
     if uc == 5:
         exit()
