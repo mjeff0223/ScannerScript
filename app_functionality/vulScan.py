@@ -38,4 +38,3 @@ def v_scans():
 
         else:
             print("Please make a valid choice")
-
