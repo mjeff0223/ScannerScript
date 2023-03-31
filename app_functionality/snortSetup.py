@@ -27,11 +27,11 @@ def configure_snort_rules():
             view_current_rules()
         elif choice == '5':
             print("Exiting Snort Rule Configuration Menu...")
+            menu.show_homepage()
+            menu.menu_options()
             break
         else:
             print("Invalid choice. Please try again.")
-    menu.show_homepage()
-    menu.menu_options()
 
 def enable_disable_rule():
     rule_id = input("Enter the ID of the rule you want to enable/disable: ")
