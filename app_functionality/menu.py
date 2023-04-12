@@ -26,5 +26,7 @@ def menu_options():
         networkCapture.start_capture()
     elif uc == 4:
         snortSetup.configure_snort_rules()
-    if uc == 5:
+    elif uc == 5:
         exit()
+    else:
+        print('Invalid Input')

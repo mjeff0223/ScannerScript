@@ -31,20 +31,29 @@ def display_interfaces():
     result = subprocess.run(["tshark", "-D"], stdout=subprocess.PIPE)
     interfaces = result.stdout.decode().splitlines()
     for i, interface in enumerate(interfaces):
-        print(f"{i+1}. {interface}")
+        print(f"{interface}")
     return interfaces
+
+def select_interface():
+    interfaces = display_interfaces()
+    interface_choice = input("Enter interface number: ")
+    if interface_choice.isdigit() and 1 <= int(interface_choice) <= len(interfaces):
+        interface = interfaces[int(interface_choice)-1].split(' ')[1]
+        return interface
+    else:
+        print("Invalid interface number.")
 
 def display_menu():
     # Display capture options menu and capture user input
     print("                  === Network Capture ===          ")
     print("                === Tshark Capture Menu ===        ")
     print("        ------------------------------------------- ")
-    print("| 1.    Capture on all available interfaces   | 2.    Choose an interface to capture on    |")
+    print("| 1.    Choose an interface to capture on   | 2.    Apply a Capture Filter    |")
     print("        -------------------------------------------  ")
     print("         ------------------------------------------")
-    print("| 3.  Apply a Capture Filter    | 4.    Save Capture to a File   |")
-    print("             ------------------------------------------")
-    print("                             5. Exit                      |   ")
+    print("| 3.     Save Capture to a File             | 4.     Run Packet Capture        |")
+    print("         ------------------------------------------")
+    print("| 5.      Exit             | ")
     choice = input("Enter your choice: ")
     return choice
 
@@ -58,20 +67,29 @@ def start_capture():
     # Process user input
     while choice != "5":
         if choice == "1":
-            capture_packets(interfaces, output_file, capture_filter)
+            interface = select_interface()
+            capture_packets(interface, output_file, capture_filter)
         elif choice == "2":
-            interfaces = display_interfaces()
-            interface_choice = input("Enter interface number: ")
-            if interface_choice.isdigit() and 1 <= int(interface_choice) <= len(interfaces):
-                interface = interfaces[int(interface_choice)-1]
-                capture_packets(interface, output_file, capture_filter)
-            else:
-                print("Invalid interface number.")
-        elif choice == "3":
             capture_filter = input("Enter capture filter: ")
+            if interface == None:
+            	interface = select_interface()
+            capture_packets(interfaces, output_file, capture_filter)
+        elif choice == "3":
+            output_file = input("Enter output file name: ")
+            if interface == None:
+            	interface = select_interface()
             capture_packets(interfaces, output_file, capture_filter)
         elif choice == "4":
-            output_file = input("Enter output file name: ")
+            if interface == None:
+            	interface = select_interface()
+            if output_file == None:
+            	user_resp_output = input("Do you want to save the output to a file? (Y/N): ").lower()
+            	if user_resp_output == "y":
+                    output_file = input("Enter output file name: ")
+            if capture_filter == None:
+                user_resp_filter = input("Do you want to add a capture filter? (Y/N): ").lower()
+                if user_resp_filter == "y":
+                    capture_filter = input("Enter capture filter: ")
             capture_packets(interfaces, output_file, capture_filter)
         else:
             print("Invalid choice.")

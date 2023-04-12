@@ -1,7 +1,9 @@
 import subprocess
 from app_functionality import menu
 
-
+#Install if not installed?
+#pcap or network interface
+#
 def configure_snort_rules():
     while True:
         print("")
@@ -27,11 +29,11 @@ def configure_snort_rules():
             view_current_rules()
         elif choice == '5':
             print("Exiting Snort Rule Configuration Menu...")
+            menu.show_homepage()
+            menu.menu_options()
             break
         else:
             print("Invalid choice. Please try again.")
-    menu.show_homepage()
-    menu.menu_options()
 
 def enable_disable_rule():
     rule_id = input("Enter the ID of the rule you want to enable/disable: ")
@@ -46,12 +48,13 @@ def add_new_rule():
     rule_type = input("Enter the rule type (e.g. alert, log): ")
     rule_protocol = input("Enter the rule protocol (e.g. TCP, UDP): ")
     rule_source = input("Enter the rule source (e.g. any, !192.168.1.1): ")
+    rule_src_port = input("Enter the rule port (e.g. 80, 443): ")
     rule_destination = input("Enter the rule destination (e.g. any, 192.168.1.1): ")
-    rule_port = input("Enter the rule port (e.g. 80, 443): ")
-    rule_action = input("Enter the rule action (e.g. drop, pass): ")
-
+    rule_dst_port = input("Enter the rule port (e.g. 80, 443): ")
+    rule_action = input("Enter the msg you want displayed for this rule: ")
+    rule_sid = input("Enter the sid you want displayed for this rule: ")
     # Construct the Snort rule string
-    rule = f"{rule_type} {rule_protocol} {rule_source} {rule_port} -> {rule_destination} {rule_port} ({rule_action})"
+    rule = f"{rule_type} {rule_protocol} {rule_source} {rule_src_port} -> {rule_destination} {rule_dst_port} (msg: {rule_action}; sid: {rule_sid})"
 
     # Execute the Snort command-line interface to add the new rule
     subprocess.run(["sudo", "snort", "-Tc", "/etc/snort/snort.conf"])
